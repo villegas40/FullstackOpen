@@ -31,15 +31,16 @@ function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  function handleGoodClick(){
+
+  function handleGoodClick() {
     setGood(good + 1)
   }
 
-  function handleNeutralClick(){
+  function handleNeutralClick() {
     setNeutral(neutral + 1)
   }
 
-  function handleBadClick(){
+  function handleBadClick() {
     setBad(bad + 1)
   }
 
@@ -60,6 +61,15 @@ function App() {
       </div>
       <div>
         <Display text="bad" counter={bad} />
+      </div>
+      <div>
+        <span>all {good + neutral + bad}</span>
+      </div>
+      <div>
+        <span>average {(good - bad) / (good + neutral + bad) }</span>
+      </div>
+      <div>
+        <span>positive {(good * 100) / (good + neutral + bad)} %</span>
       </div>
     </>
   );
