@@ -9,11 +9,11 @@ const Title = ({text}) => {
   )
 }
 
-const Display = ({text, counter}) => {
+const StatisticLine = ({text, value}) => {
   return (
-    <>
-      <span>{text + " " + counter}</span>
-    </>
+    <div>
+      <span>{text + " " + value}</span>
+    </div>
   )
 }
 
@@ -27,7 +27,7 @@ const Button = ({handleClick, text}) => {
 
 const Statistics = ({all, average, positive}) => {
   return (
-    <>
+    <div>
       <div>
         <span>all {all()}</span>
       </div>
@@ -37,7 +37,7 @@ const Statistics = ({all, average, positive}) => {
       <div>
         <span>positive {positive()}</span>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -86,21 +86,12 @@ function App() {
       </div>
       <Title text="statistics" />
       { countAll() === 0 ? <span>No feedback given</span>: 
-        <>
-          <div>
-            <Display text="good" counter={good} />
-          </div>
-          <div>
-            <Display text="neutral" counter={neutral} />
-          </div>
-          <div>
-            <Display text="bad" counter={bad} />
-          </div>
-          <div>
-          
-            <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
-          </div>
-        </>
+        <div>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
+        </div>
       }
     </>
   );
