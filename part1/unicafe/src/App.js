@@ -85,18 +85,23 @@ function App() {
         <Button handleClick={handleBadClick} text="bad" />
       </div>
       <Title text="statistics" />
-      <div>
-        <Display text="good" counter={good} />
-      </div>
-      <div>
-        <Display text="neutral" counter={neutral} />
-      </div>
-      <div>
-        <Display text="bad" counter={bad} />
-      </div>
-      <div>
-        <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
-      </div>
+      { countAll() === 0 ? <span>No feedback given</span>: 
+        <>
+          <div>
+            <Display text="good" counter={good} />
+          </div>
+          <div>
+            <Display text="neutral" counter={neutral} />
+          </div>
+          <div>
+            <Display text="bad" counter={bad} />
+          </div>
+          <div>
+          
+            <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
+          </div>
+        </>
+      }
     </>
   );
 }
