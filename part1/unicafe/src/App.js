@@ -11,9 +11,10 @@ const Title = ({text}) => {
 
 const StatisticLine = ({text, value}) => {
   return (
-    <div>
-      <span>{text + " " + value}</span>
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   )
 }
 
@@ -27,17 +28,22 @@ const Button = ({handleClick, text}) => {
 
 const Statistics = ({all, average, positive}) => {
   return (
-    <div>
-      <div>
-        <span>all {all()}</span>
-      </div>
-      <div>
-        <span>average {average()}</span>
-      </div>
-      <div>
-        <span>positive {positive()}</span>
-      </div>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>all</td>
+          <td>{all()}</td>
+        </tr>
+        <tr>
+          <td>average</td>
+          <td>{average()}</td>
+        </tr>
+        <tr>
+          <td>positive</td>
+          <td>{positive()}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
@@ -87,9 +93,13 @@ function App() {
       <Title text="statistics" />
       { countAll() === 0 ? <span>No feedback given</span>: 
         <div>
-          <StatisticLine text="good" value={good} />
-          <StatisticLine text="neutral" value={neutral} />
-          <StatisticLine text="bad" value={bad} />
+          <table>
+            <tbody>
+              <StatisticLine text="good" value={good} />
+              <StatisticLine text="neutral" value={neutral} />
+              <StatisticLine text="bad" value={bad} />
+            </tbody>
+          </table>
           <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
         </div>
       }
