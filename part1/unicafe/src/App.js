@@ -25,12 +25,44 @@ const Button = ({handleClick, text}) => {
   )
 }
 
+const Statistics = ({all, average, positive}) => {
+  return (
+    <>
+      <div>
+        <span>all {all()}</span>
+      </div>
+      <div>
+        <span>average {average()}</span>
+      </div>
+      <div>
+        <span>positive {positive()}</span>
+      </div>
+    </>
+  )
+}
+
 function App() {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  function countAll() {
+    let all = good + neutral + bad
+    return all
+  }
+
+  function calculateAverage() {
+    let average = (good - bad) / (good + neutral + bad)
+    average = isNaN(average) ? 0 : average
+    return average
+  }
+
+  function calculatePositive() {
+    let positive = (good * 100) / (good + neutral + bad)
+    positive = isNaN(positive) ? 0 : positive
+    return positive + " %"
+  }
 
   function handleGoodClick() {
     setGood(good + 1)
@@ -63,13 +95,7 @@ function App() {
         <Display text="bad" counter={bad} />
       </div>
       <div>
-        <span>all {good + neutral + bad}</span>
-      </div>
-      <div>
-        <span>average {(good - bad) / (good + neutral + bad) }</span>
-      </div>
-      <div>
-        <span>positive {(good * 100) / (good + neutral + bad)} %</span>
+        <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
       </div>
     </>
   );
