@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Title = ({text}) => {
+const Title = ({ text }) => {
   return (
     <>
       <h1>{text}</h1>
@@ -9,16 +9,7 @@ const Title = ({text}) => {
   )
 }
 
-const StatisticLine = ({text, value}) => {
-  return (
-    <tr>
-      <td>{text}</td>
-      <td>{value}</td>
-    </tr>
-  )
-}
-
-const Button = ({handleClick, text}) => {
+const Button = ({ handleClick, text }) => {
   return (
     <>
       <button onClick={handleClick}>{text}</button>
@@ -26,24 +17,25 @@ const Button = ({handleClick, text}) => {
   )
 }
 
-const Statistics = ({all, average, positive}) => {
+const StatisticLine = ({ text, value }) => {
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td>all</td>
-          <td>{all()}</td>
-        </tr>
-        <tr>
-          <td>average</td>
-          <td>{average()}</td>
-        </tr>
-        <tr>
-          <td>positive</td>
-          <td>{positive()}</td>
-        </tr>
-      </tbody>
-    </table>
+    <tr>
+      <td>{text}</td>
+      <td style={{ textAlign: "left", verticalAlign: "middle" }}>{value}</td>
+    </tr>
+  )
+}
+
+const Statistics = ({ good, neutral, bad, all, average, positive }) => {
+  return (
+    <>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text={"all"} value={all} />
+      <StatisticLine text={"average"} value={average} />
+      <StatisticLine text={"positive"} value={positive} />
+    </>
   )
 }
 
@@ -84,23 +76,20 @@ function App() {
 
   return (
     <>
-      <Title text="give feedback"/>
+      <Title text="give feedback" />
       <div>
         <Button handleClick={handleGoodClick} text="good" />
         <Button handleClick={handleNeutralClick} text="neutral" />
         <Button handleClick={handleBadClick} text="bad" />
       </div>
       <Title text="statistics" />
-      { countAll() === 0 ? <span>No feedback given</span>: 
+      {countAll() === 0 ? <span>No feedback given</span> :
         <div>
           <table>
             <tbody>
-              <StatisticLine text="good" value={good} />
-              <StatisticLine text="neutral" value={neutral} />
-              <StatisticLine text="bad" value={bad} />
+              <Statistics good={good} neutral={neutral} bad={bad} all={countAll()} average={calculateAverage()} positive={calculatePositive()} />
             </tbody>
           </table>
-          <Statistics all={countAll} average={calculateAverage} positive={calculatePositive}/>
         </div>
       }
     </>
